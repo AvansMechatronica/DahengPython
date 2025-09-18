@@ -53,7 +53,7 @@ class dahengCamera:
 
     def open(self, device_index):
         """Open a Daheng camera by index, configure acquisition and image quality settings."""
-        dev_num, dev_info_list = self.device_manager.update_all_device_list()
+        dev_num, self.dev_info_list = self.device_manager.update_all_device_list()
         if dev_num == 0:
             if self.debug:
                 print("<DahangDamera: No camera found>")
@@ -62,14 +62,14 @@ class dahengCamera:
 
         # open the first device
         self.cam = self.device_manager.open_device_by_index(device_index)
-        remote_device_feature = self.cam.get_remote_device_feature_control()
+        self.remote_device_feature = self.cam.get_remote_device_feature_control()
 
         # get image improvement obj
         image_process_config = self.cam.create_image_process_config()
         image_process_config.enable_color_correction(False)
 
         # exit when the camera is a mono camera
-        pixel_format_value, pixel_format_str = remote_device_feature.get_enum_feature("PixelFormat").get()
+        pixel_format_value, pixel_format_str = self.remote_device_feature.get_enum_feature("PixelFormat").get()
         if Utility.is_gray(pixel_format_value):
             if self.debug:
                 print("<DahangDamera: This sample does not support mono camera.>")
@@ -77,35 +77,72 @@ class dahengCamera:
             return
 
         # set continuous acquisition
-        trigger_mode_feature = remote_device_feature.get_enum_feature("TriggerMode")
+        trigger_mode_feature = self.remote_device_feature.get_enum_feature("TriggerMode")
         trigger_mode_feature.set("Off")
 
         # get param of improving image quality
-        if remote_device_feature.is_readable("GammaParam"):
-            gamma_value = remote_device_feature.get_float_feature("GammaParam").get()
+        if self.remote_device_feature.is_readable("GammaParam"):
+            gamma_value = self.remote_device_feature.get_float_feature("GammaParam").get()
             image_process_config.set_gamma_param(gamma_value)
         else:
             image_process_config.set_gamma_param(1)
-        if remote_device_feature.is_readable("ContrastParam"):
-            contrast_value = remote_device_feature.get_int_feature("ContrastParam").get()
-            image_process_config.set_contrast_param(contrast_value)
+        if self.dev_info_list[0].get("device_class") == gx.GxDeviceClassList.USB2:
+            pass
         else:
-            image_process_config.set_contrast_param(0)
+            if self.remote_device_feature.is_readable("ContrastParam"):
+                contrast_value = self.remote_device_feature.get_int_feature("ContrastParam").get()
+                image_process_config.set_contrast_param(contrast_value)
+            else:
+                image_process_config.set_contrast_param(0)
 
-        # Restore default parameter group
-        remote_device_feature.get_enum_feature("UserSetSelector").set("Default")
-        remote_device_feature.get_command_feature("UserSetLoad").send_command()
+        if 1:
+            # Restore default parameter group
+            if self.dev_info_list[0].get("device_class") == gx.GxDeviceClassList.USB2:
+                pass
+            else:
+                self.remote_device_feature.get_enum_feature("UserSetSelector").set("Default")
+
+        else:
+            # Deze methode werkt niet goed
+            if remote_device_feature.is_implemented("UserSetSelector") and remote_device_feature.is_writable("UserSetSelector"):
+                print("UserSetSelector bestaat")
+                remote_device_feature.get_enum_feature("UserSetSelector").set("Default")
+            else:
+                print("UserSetSelector bestaat niet")
+                remote_device_feature.get_enum_feature("UserSetSelector").set("Default")
+
+        self.remote_device_feature.get_command_feature("UserSetLoad").send_command()
 
         if self.debug:
             print("<DahangDamera: ***********************************************>")
-            print(f"<Vendor Name:   {dev_info_list[0]['vendor_name']}>")
-            print(f"<Model Name:    {dev_info_list[0]['model_name']}>")
+            print(f"<Vendor Name:   {self.dev_info_list[0]['vendor_name']}>")
+            print(f"<Model Name:    {self.dev_info_list[0]['model_name']}>")
             print("<DahangDamera: ***********************************************>")
         self.open = True
 
     def isOpen(self):
         """Return True if the camera is open, False otherwise."""
         return self.open
+
+    def setSoftwareTriggerMode(self):
+        """Set software trigger mode."""
+        trigger_mode_feature = self.remote_device_feature.get_enum_feature("TriggerMode")
+        if self.dev_info_list[0].get("device_class") == gx.GxDeviceClassList.USB2:
+            # set trigger mode
+            trigger_mode_feature.set("On")
+            print("Trigger mode: USB2")
+        else:
+            # set trigger mode and trigger source
+            trigger_mode_feature.set("On")
+            print("Trigger mode: Other")
+
+            trigger_source_feature = self.remote_device_feature.get_enum_feature("TriggerSource")
+            trigger_source_feature.set("Software")
+
+    def softwareTrigger(self):
+        # send software trigger command
+        trigger_software_command_feature = self.remote_device_feature.get_command_feature("TriggerSoftware")
+        trigger_software_command_feature.send_command()
 
     def startStraem(self):
         """Start continuous streaming from the camera."""
@@ -173,7 +210,7 @@ class dahengCamera:
 
         return output_image_array, buffer_out_size
 
-    def grab_frame(self):
+    def grab_frame(self, timeout = 1000):
         """Capture a single frame, convert it to BGR (OpenCV format), and return it as a NumPy array."""
         self.frame_counter += 1
         if self.debug:
@@ -183,7 +220,7 @@ class dahengCamera:
                 print("<DahangDamera: : camera not open>")
             return None
         try:
-            raw_image = self.cam.data_stream[0].get_image()
+            raw_image = self.cam.data_stream[0].get_image(timeout)
             if raw_image is None:
                 if self.debug:
                     print("<DahangDamera: Getting image failed.>")
