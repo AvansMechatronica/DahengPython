@@ -16,7 +16,7 @@ import time
 import numpy as np
 
 
-class RoboflowDetectorOffLine:
+class RoboflowDetector:
     """
     A detector class that:
     - Loads a trained Roboflow model using the SDK
@@ -38,14 +38,16 @@ class RoboflowDetectorOffLine:
         """
         # Perform prediction on the image (returns JSON with detections)
         predictions = self.model.predict(image, confidence=40, overlap=30).json()
+        #print(predictions)
 
         # Loop through detected objects and draw results
-        for bounding_box in predictions['predictions']:
+        for prediction in predictions['predictions']:
+            print(prediction['class'])
             # Convert Roboflow center-based coordinates to corner points
-            x0 = bounding_box['x'] - bounding_box['width'] / 2
-            x1 = bounding_box['x'] + bounding_box['width'] / 2
-            y0 = bounding_box['y'] - bounding_box['height'] / 2
-            y1 = bounding_box['y'] + bounding_box['height'] / 2
+            x0 = prediction['x'] - prediction['width'] / 2
+            x1 = prediction['x'] + prediction['width'] / 2
+            y0 = prediction['y'] - prediction['height'] / 2
+            y1 = prediction['y'] + prediction['height'] / 2
 
             # Define rectangle corners
             start_point = (int(x0), int(y0))
@@ -57,11 +59,11 @@ class RoboflowDetectorOffLine:
             # Draw label text above the box
             cv2.putText(
                 image,
-                bounding_box["class"],            # Object class name
+                prediction["class"],            # Object class name
                 (int(x0), int(y0) - 10),          # Position slightly above box
                 fontFace=cv2.FONT_HERSHEY_SIMPLEX,
                 fontScale=0.6,
-                color=(255, 255, 255),            # White text
+                color=(0, 255, 0),            # White text
                 thickness=2
             )
         return image
@@ -81,7 +83,7 @@ def main():
     - Exit gracefully on 'q'
     """
     camera = dahengCamera(1, True)
-    object_detector = RoboflowDetectorOffLine()
+    object_detector = RoboflowDetector()
 
     if not camera.isOpen():
         return

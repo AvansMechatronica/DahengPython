@@ -6,3 +6,6 @@ pandas
 tqdm
 seaborn
 #roboflow conflicts with opencv-python
+# repar for open cv after installing roboflow
+#pip uninstall opencv-python opencv-python-headless -y
+#pip install opencv-python
