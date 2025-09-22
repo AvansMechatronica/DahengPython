@@ -1,2 +1,8 @@
 numpy
 opencv-python
+torch
+ultralytics
+pandas
+tqdm
+seaborn
+#roboflow conflicts with opencv-python

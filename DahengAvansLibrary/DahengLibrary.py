@@ -269,7 +269,8 @@ class dahengCamera:
         """Close the Daheng camera and release resources."""
         if self.debug:
             print("<DahangDamera: Close camera>")
-        self.cam.close_device()
+        #self.cam.close_device()
+        self.cam.close()
         self.open = False
         pass
 
