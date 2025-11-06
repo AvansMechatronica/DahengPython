@@ -28,8 +28,8 @@ import cv2
 
 
 def main():
-    camera = dahengCamera(1, True)
-
+    #camera = dahengCamera(1, True)
+    camera = dahengCamera(1)
     if not camera.isOpen():
         return
     print("Press [q] and then [Enter] to Exit the Program")

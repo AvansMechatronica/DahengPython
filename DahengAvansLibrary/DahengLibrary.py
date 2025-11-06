@@ -41,7 +41,7 @@ class dahengCamera:
         """Initialize the Daheng camera interface and open the given device index."""
         self.debug = debug
         if self.debug:
-            print("<DahangDamera: init camera>")
+            print("<DahengCamera: init camera>")
         self.device_manager = gx.DeviceManager()
 
         self.image_convert = self.device_manager.create_image_format_convert()
@@ -56,7 +56,7 @@ class dahengCamera:
         dev_num, self.dev_info_list = self.device_manager.update_all_device_list()
         if dev_num == 0:
             if self.debug:
-                print("<DahangDamera: No camera found>")
+                print("<DahengCamera: No camera found>")
             self.open = False
             return
 
@@ -68,32 +68,67 @@ class dahengCamera:
         image_process_config = self.cam.create_image_process_config()
         image_process_config.enable_color_correction(False)
 
+        try:
+            exposure_mode_feature = self.remote_device_feature.get_enum_feature("ExposureMode")
+            print(exposure_mode_feature.get_range())
+            exposure_current_mode = exposure_mode_feature.get()
+            print("ExposureMode: " + str(exposure_current_mode))
+            if 0:
+                if self.remote_device_feature.is_writable("ExposureTime"):
+                    exposure_time_feature.set(current_exposure_time * 100)
+                    current_exposure_time = exposure_time_feature.get()
+                    print("ExposureTime 2: " + str(current_exposure_time))
+        except:
+            print("<DahengCamera: Failed to get ExposureTime from remote device>")
+
+
         # exit when the camera is a mono camera
-        pixel_format_value, pixel_format_str = self.remote_device_feature.get_enum_feature("PixelFormat").get()
-        if Utility.is_gray(pixel_format_value):
-            if self.debug:
-                print("<DahangDamera: This sample does not support mono camera.>")
-            self.cam.close_device()
-            return
+        try:
+            exposure_time_feature = self.remote_device_feature.get_float_feature("ExposureTime")
+            print(exposure_time_feature.get_range())
+            current_exposure_time = exposure_time_feature.get()
+            print("ExposureTime 1: " + str(current_exposure_time))
+            if self.remote_device_feature.is_writable("ExposureTime"):
+                exposure_time_feature.set(current_exposure_time * 1000)
+                current_exposure_time = exposure_time_feature.get()
+                print("ExposureTime 2: " + str(current_exposure_time))
+        except:
+            print("<DahengCamera: Failed to get ExposureTime from remote device>")
 
-        # set continuous acquisition
-        trigger_mode_feature = self.remote_device_feature.get_enum_feature("TriggerMode")
-        trigger_mode_feature.set("Off")
+        if 0:
+            try:
+                if self.remote_device_feature.is_implemented("GainAuto"):
+                    print("<DahengCamera: Implemented>")
+                else:
+                    print("<DahengCamera: Not Implemented>")
 
-        # get param of improving image quality
-        if self.remote_device_feature.is_readable("GammaParam"):
-            gamma_value = self.remote_device_feature.get_float_feature("GammaParam").get()
-            image_process_config.set_gamma_param(gamma_value)
-        else:
-            image_process_config.set_gamma_param(1)
-        if self.dev_info_list[0].get("device_class") == gx.GxDeviceClassList.USB2:
-            pass
-        else:
-            if self.remote_device_feature.is_readable("ContrastParam"):
-                contrast_value = self.remote_device_feature.get_int_feature("ContrastParam").get()
-                image_process_config.set_contrast_param(contrast_value)
+
+                gain_auto = self.remote_device_feature.get_enum_feature("GainAuto")
+                if self.remote_device_feature.is_readable("GainAuto"):
+                    print("read")
+                    print(gain_auto.get_range())
+                    print(gain_auto.get())
+                #current_gain_auto = gain.get()
+                #print("GainAuto: " + str(current_gain_auto))
+            except:
+                print("<DahengCamera: Failed to get GainAuto from remote device>")
+
+
+        if 0:
+            # get param of improving image quality
+            if self.remote_device_feature.is_readable("GammaParam"):
+                gamma_value = self.remote_device_feature.get_float_feature("GammaParam").get()
+                image_process_config.set_gamma_param(gamma_value)
             else:
-                image_process_config.set_contrast_param(0)
+                image_process_config.set_gamma_param(1)
+            if self.dev_info_list[0].get("device_class") == gx.GxDeviceClassList.USB2:
+                pass
+            else:
+                if self.remote_device_feature.is_readable("ContrastParam"):
+                    contrast_value = self.remote_device_feature.get_int_feature("ContrastParam").get()
+                    image_process_config.set_contrast_param(contrast_value)
+                else:
+                    image_process_config.set_contrast_param(0)
 
         if 1:
             # Restore default parameter group
@@ -114,10 +149,10 @@ class dahengCamera:
         self.remote_device_feature.get_command_feature("UserSetLoad").send_command()
 
         if self.debug:
-            print("<DahangDamera: ***********************************************>")
+            print("<DahengCamera: ***********************************************>")
             print(f"<Vendor Name:   {self.dev_info_list[0]['vendor_name']}>")
             print(f"<Model Name:    {self.dev_info_list[0]['model_name']}>")
-            print("<DahangDamera: ***********************************************>")
+            print("<DahengCamera: ***********************************************>")
         self.open = True
 
     def isOpen(self):
@@ -205,7 +240,7 @@ class dahengCamera:
         self.image_convert.convert(raw_image, output_image, buffer_out_size, False)
         if output_image is None:
             if self.debug:
-                print("<DahangDamera: : Failed to convert RawImage to RGBImage>")
+                print("<DahengCamera: : Failed to convert RawImage to RGBImage>")
             return
 
         return output_image_array, buffer_out_size
@@ -214,16 +249,16 @@ class dahengCamera:
         """Capture a single frame, convert it to BGR (OpenCV format), and return it as a NumPy array."""
         self.frame_counter += 1
         if self.debug:
-            print(f"<DahangDamera: grab_frame {self.frame_counter}>")
+            print(f"<DahengCamera: grab_frame {self.frame_counter}>")
         if not self.open:
             if self.debug:
-                print("<DahangDamera: : camera not open>")
+                print("<DahengCamera: : camera not open>")
             return None
         try:
             raw_image = self.cam.data_stream[0].get_image(timeout)
             if raw_image is None:
                 if self.debug:
-                    print("<DahangDamera: Getting image failed.>")
+                    print("<DahengCamera: Getting image failed.>")
                 return None
 
             # get RGB image from raw image
@@ -268,9 +303,8 @@ class dahengCamera:
     def close(self):
         """Close the Daheng camera and release resources."""
         if self.debug:
-            print("<DahangDamera: Close camera>")
-        #self.cam.close_device()
-        self.cam.close()
+            print("<DahengCamera: Close camera>")
+        self.cam.close_device()
         self.open = False
         pass
 
