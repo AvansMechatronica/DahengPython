@@ -23,6 +23,7 @@ from gxipy.gxidef import *
 import numpy
 from gxipy.ImageFormatConvert import *
 import cv2
+from .gain import *
 
 
 class dahengCamera:
@@ -48,6 +49,7 @@ class dahengCamera:
         self.image_process = self.device_manager.create_image_process()
 
         self.frame_counter = 0
+        self.gain = gain()
 
         self.open(device_index)
 

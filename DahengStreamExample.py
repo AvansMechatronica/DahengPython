@@ -34,6 +34,7 @@ def main():
         return
     print("Press [q] and then [Enter] to Exit the Program")
     camera.startStraem()
+    camera.gain.set()
 
     while True:
         image = camera.grab_frame()
