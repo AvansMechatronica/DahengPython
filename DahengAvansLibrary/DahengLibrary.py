@@ -23,8 +23,9 @@ from gxipy.gxidef import *
 import numpy
 from gxipy.ImageFormatConvert import *
 import cv2
-from .gain import *
-
+#from .gain import *
+#from .exposureTime import *
+from DahengAvansLibrary.exposureTime import *
 
 class dahengCamera:
     """
@@ -49,7 +50,7 @@ class dahengCamera:
         self.image_process = self.device_manager.create_image_process()
 
         self.frame_counter = 0
-        self.gain = gain()
+        #self.gain = gain()
 
         self.open(device_index)
 
@@ -70,67 +71,10 @@ class dahengCamera:
         image_process_config = self.cam.create_image_process_config()
         image_process_config.enable_color_correction(False)
 
-        try:
-            exposure_mode_feature = self.remote_device_feature.get_enum_feature("ExposureMode")
-            print(exposure_mode_feature.get_range())
-            exposure_current_mode = exposure_mode_feature.get()
-            print("ExposureMode: " + str(exposure_current_mode))
-            if 0:
-                if self.remote_device_feature.is_writable("ExposureTime"):
-                    exposure_time_feature.set(current_exposure_time * 100)
-                    current_exposure_time = exposure_time_feature.get()
-                    print("ExposureTime 2: " + str(current_exposure_time))
-        except:
-            print("<DahengCamera: Failed to get ExposureTime from remote device>")
+        self.exposureTime = exposureTime(self.remote_device_feature)
 
 
-        # exit when the camera is a mono camera
-        try:
-            exposure_time_feature = self.remote_device_feature.get_float_feature("ExposureTime")
-            print(exposure_time_feature.get_range())
-            current_exposure_time = exposure_time_feature.get()
-            print("ExposureTime 1: " + str(current_exposure_time))
-            if self.remote_device_feature.is_writable("ExposureTime"):
-                exposure_time_feature.set(current_exposure_time * 1000)
-                current_exposure_time = exposure_time_feature.get()
-                print("ExposureTime 2: " + str(current_exposure_time))
-        except:
-            print("<DahengCamera: Failed to get ExposureTime from remote device>")
 
-        if 0:
-            try:
-                if self.remote_device_feature.is_implemented("GainAuto"):
-                    print("<DahengCamera: Implemented>")
-                else:
-                    print("<DahengCamera: Not Implemented>")
-
-
-                gain_auto = self.remote_device_feature.get_enum_feature("GainAuto")
-                if self.remote_device_feature.is_readable("GainAuto"):
-                    print("read")
-                    print(gain_auto.get_range())
-                    print(gain_auto.get())
-                #current_gain_auto = gain.get()
-                #print("GainAuto: " + str(current_gain_auto))
-            except:
-                print("<DahengCamera: Failed to get GainAuto from remote device>")
-
-
-        if 0:
-            # get param of improving image quality
-            if self.remote_device_feature.is_readable("GammaParam"):
-                gamma_value = self.remote_device_feature.get_float_feature("GammaParam").get()
-                image_process_config.set_gamma_param(gamma_value)
-            else:
-                image_process_config.set_gamma_param(1)
-            if self.dev_info_list[0].get("device_class") == gx.GxDeviceClassList.USB2:
-                pass
-            else:
-                if self.remote_device_feature.is_readable("ContrastParam"):
-                    contrast_value = self.remote_device_feature.get_int_feature("ContrastParam").get()
-                    image_process_config.set_contrast_param(contrast_value)
-                else:
-                    image_process_config.set_contrast_param(0)
 
         if 1:
             # Restore default parameter group
