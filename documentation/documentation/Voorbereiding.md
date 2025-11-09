@@ -12,7 +12,8 @@ Installeer de SDK
 [Galaxy Windows SDK](https://gb.daheng-imaging.com/EN/Software/Cameras/Windows/Galaxy_Windows_EN_32bits-64bits_2.5.2509.9041.zip)
 
 Installeer de Runtime SDK
-[Galaxy Windows Runtime SDK](https://gb.daheng-imaging.com/EN/Software/Cameras/Windows/Galaxy_Windows_Runtime_EN_32bits-64bits_2.5.2509.9041.zip):::
+[Galaxy Windows Runtime SDK](https://gb.daheng-imaging.com/EN/Software/Cameras/Windows/Galaxy_Windows_Runtime_EN_32bits-64bits_2.5.2509.9041.zip)
+:::
 :::{tab-item} Linux
 Download de SDK
 [Galaxy Linux SDK](https://gb.daheng-imaging.com/EN/Software/Cameras/Linux/Galaxy_Linux-arm64_Gige-U3_2.4.2507.8231.zip)
@@ -27,7 +28,8 @@ Download Python SDK
 :::::{card} 
 ::::{tab-set}
 :::{tab-item} Zip-file
-[Download DahengPython Library](https://github.com/AvansMechatronica/DahengPython/archive/refs/heads/main.zip):::
+[Download DahengPython Library](https://github.com/AvansMechatronica/DahengPython/archive/refs/heads/main.zip)
+:::
 :::{tab-item} Git-clone
 ```bash
 git clone https://github.com/AvansMechatronica/DahengPython.git
