@@ -9,7 +9,7 @@ and runs inference directly on frames captured from a Daheng camera.
 """
 
 from PIL.ImageMath import imagemath_equal  # (unused import, can be removed)
-from DahengAvansLibrary.DahengLibrary import dahengCamera
+from DahengAvansLibrary.dahengLibrary import dahengCamera
 from roboflow import Roboflow
 import cv2
 import time
@@ -89,7 +89,7 @@ def main():
         return
 
     print("Press [q] and then [Enter] to Exit the Program")
-    camera.startStraem()
+    camera.startStream()
 
     start_time = time.perf_counter()
 
@@ -113,14 +113,14 @@ def main():
 
             # Exit on 'q'
             if cv2.waitKey(1) & 0xFF == ord('q'):
-                camera.stopStraem()
+                camera.stopStream()
                 cv2.destroyAllWindows()
                 return
 
             start_time = end_time  # Reset timer
         else:
             # Stop and cleanup if no frame
-            camera.stopStraem()
+            camera.stopStream()
             camera.close()
             cv2.destroyAllWindows()
             return

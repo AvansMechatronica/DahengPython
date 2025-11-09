@@ -8,7 +8,7 @@ import torch
 import numpy as np
 import cv2
 import time
-from DahengAvansLibrary.DahengLibrary import dahengCamera
+from DahengAvansLibrary.dahengLibrary import dahengCamera
 
 
 class YoloV5Detector:
@@ -118,7 +118,7 @@ def main():
     if not camera.isOpen():  # Check if camera opened successfully
         return
     print("Press [q] and then [Enter] to Exit the Program")
-    camera.startStraem()  # Start video stream
+    camera.startStream()  # Start video stream
 
     start_time = time.perf_counter()
     while True:
@@ -142,14 +142,14 @@ def main():
 
             # Quit on pressing 'q'
             if cv2.waitKey(1) & 0xFF == ord('q'):
-                camera.stopStraem()
+                camera.stopStream()
                 cv2.destroyAllWindows()
                 return
 
             start_time = end_time  # Reset timer
         else:
             # If no frame is captured, stop and clean up
-            camera.stopStraem()
+            camera.stopStream()
             camera.close()
             cv2.destroyAllWindows()
             return

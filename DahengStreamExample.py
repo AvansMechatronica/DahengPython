@@ -1,74 +1,100 @@
 #!/usr/bin/python
 """
-Example: Using Daheng Camera in Stream Mode
--------------------------------------------
+Voorbeeld: Gebruik van een Daheng-camera in streammodus
+-------------------------------------------------------
 
-This script demonstrates how to:
-- Initialize and open a Daheng camera using the DahengAvansLibrary wrapper.
-- Start image streaming.
-- Capture frames and display them using OpenCV.
-- Gracefully stop the stream and close the camera.
+Dit script demonstreert hoe je:
+- Een Daheng-camera initialiseert en opent via de DahengAvansLibrary-wrapper.
+- De camerastream start.
+- Beelden (frames) vastlegt en toont met OpenCV.
+- De stream correct stopt en de camera afsluit bij beëindiging.
 
-Controls:
-- Press 'q' (and then Enter) while the OpenCV window is active to stop streaming and exit.
+Bediening:
+- Druk op 'q' (en vervolgens Enter) terwijl het OpenCV-venster actief is om te stoppen.
 
-Requirements:
-- Daheng Galaxy SDK installed
-- gxipy Python package
+Vereisten:
+- Daheng Galaxy SDK geïnstalleerd
+- gxipy Python-pakket
 - OpenCV (cv2)
 
-Author: Gerard Harkema
-Date:   2025-09-19
-Version: 1.00 (initial version)
+Auteur:  Gerard Harkema
+Datum:   2025-09-19
+Versie:  1.00 (initiële versie)
 """
 
-# import the Daheng library
-from DahengAvansLibrary.DahengLibrary import dahengCamera
-import cv2
+# Schaalfactor voor het weergegeven beeld (verkleint om prestaties te verbeteren)
+image_scale_factor = 0.3
 
-def rangeCb(value):
-    print(value)
-    pass
+# ------------------------------------------------------------
+# Importeren van benodigde bibliotheken
+# ------------------------------------------------------------
+from DahengAvansLibrary.dahengLibrary import dahengCamera  # Eigen wrapper rond de Daheng SDK
+import cv2  # OpenCV voor beeldverwerking en weergave
+
 
 def main():
-    #camera = dahengCamera(1, True)
+    """Hoofdfunctie: initialiseert camera, start streaming en toont beelden."""
 
-
+    # --------------------------------------------------------
+    # Initialiseer de camera
+    # --------------------------------------------------------
+    # Argumenten:
+    # - device_index: index van de camera (meestal 1 bij één aangesloten camera)
+    # - debug (optioneel): zet op True voor extra debuguitvoer
+    # camera = dahengCamera(1, True)
     camera = dahengCamera(1)
+
+    # Controleer of de camera succesvol is geopend
     if not camera.isOpen():
+        print("Geen camera gevonden of kan camera niet openen.")
         return
-    print("Press [q] and then [Enter] to Exit the Program")
 
-    camera.startStraem()
+    print("Druk op [q] en dan [Enter] om het programma te stoppen.")
 
-    cv2.namedWindow('Acquired Image')
-    range = camera.exposureTime.get_range()
-    print(range)
-    cv2.createTrackbar('ExposureTime', "Acquired Image", int(range['min'] + 1), int(range['max']), rangeCb)
-    #cv2.createTrackbar('ExposureTime', 'Acquired Image', 0, 100, rangeCb)
+    # --------------------------------------------------------
+    # Start de videostream van de camera
+    # --------------------------------------------------------
+    camera.startStream()
 
-    et = camera.exposureTime.get()
-    print("Current exposure time 1: {}".format(et))
-    cv2.setTrackbarPos('ExposureTime', "Acquired Image", int(et))
-#    camera.gain.set()
-
+    # --------------------------------------------------------
+    # Hoofd-lus: continue beelden ophalen en tonen
+    # --------------------------------------------------------
     while True:
-        new_et = cv2.getTrackbarPos('ExposureTime', "Acquired Image")
-        camera.exposureTime.set(new_et)
+        # Vraag een enkel frame op van de camera
         image = camera.grab_frame()
+
+        # Controleer of een geldig beeld is ontvangen
         if image is not None:
-            resized = cv2.resize(image, None, fx=0.3, fy=0.3, interpolation=cv2.INTER_AREA)
+            # Verklein het beeld voor weergave (optioneel)
+            resized = cv2.resize(
+                image,
+                None,
+                fx=image_scale_factor,
+                fy=image_scale_factor,
+                interpolation=cv2.INTER_AREA
+            )
+
+            # Toon het verkleinde beeld in een OpenCV-venster
             cv2.imshow("Acquired Image", resized)
+
+            # Controleer of gebruiker op 'q' drukt om te stoppen
             if cv2.waitKey(1) & 0xFF == ord('q'):
-                camera.stopStraem()
+                # Stop de stream en sluit het venster
+                camera.stopStream()
                 cv2.destroyAllWindows()
                 return
+
         else:
-            camera.stopStraem()
+            # Als geen beeld ontvangen wordt, sluit de camera netjes af
+            print("Geen beeld ontvangen - stream wordt gestopt.")
+            camera.stopStream()
             camera.close()
             cv2.destroyAllWindows()
             return
 
 
+# ------------------------------------------------------------
+# Startpunt van het programma
+# ------------------------------------------------------------
 if __name__ == "__main__":
     main()
