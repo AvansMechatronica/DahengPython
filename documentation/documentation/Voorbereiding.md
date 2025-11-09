@@ -5,8 +5,8 @@
 [Daheng Mercury2 Manual](
 https://en.daheng-imaging.com/index.php?m=content&c=index&a=file_down&id=1462&f=/uploadfile/2025/0922/20250922021837350.pdf)
 
-:::::{card} ::::{tab-set}
-
+:::::{card}
+::::{tab-set}
 :::{tab-item} Windows
 Installeer de SDK
 [Galaxy Windows SDK](https://gb.daheng-imaging.com/EN/Software/Cameras/Windows/Galaxy_Windows_EN_32bits-64bits_2.5.2509.9041.zip)
@@ -22,23 +22,18 @@ Download Python SDK
 * Volg de instructies in de zip-bestanden voor het installeren:::
 
 ::::
-
 :::::
 
-:::::{card} ::::{tab-set}
-
+:::::{card} 
+::::{tab-set}
 :::{tab-item} Zip-file
-
 [Download DahengPython Library](https://github.com/AvansMechatronica/DahengPython/archive/refs/heads/main.zip):::
 :::{tab-item} Git-clone
-
 ```bash
 git clone https://github.com/AvansMechatronica/DahengPython.git
 ```
 :::
-
 :::{tab-item} Git-fork
-
 * Maak een account aan bij [Github](https://github.com/) en login op dit account
 
 * Open de [DahengPython library](https://github.com/AvansMechatronica/DahengPython) repository
@@ -47,13 +42,9 @@ git clone https://github.com/AvansMechatronica/DahengPython.git
 
 ![image](../images/fork.jpg)
 
-* Volg de instructies, maar wijzig de naam van de nieuwe repository niet. Bevestig met **Create Fork**  
-
-
+* Volg de instructies, maar wijzig de naam van de nieuwe repository niet. Bevestig met **Create Fork**
 :::
-
 ::::
-
 :::::
 
 
