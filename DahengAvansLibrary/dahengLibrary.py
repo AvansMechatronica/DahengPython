@@ -6,6 +6,7 @@
 #
 
 import os
+import warnings
 
 # ------------------------------------------------------------
 # Instellen van de omgeving voor de Daheng Galaxy SDK
@@ -29,9 +30,39 @@ from gxipy.gxidef import *
 import numpy
 from gxipy.ImageFormatConvert import *
 import cv2
-# from .gain import *
-# from .exposureTime import *
 from DahengAvansLibrary.dahengFeature import *
+
+
+# Vul hier features toe die je wilt gebruiken
+# zie 3.4. Feature Parameter
+# Python Interface Development User Manual
+# Na toevoeging zijn ze als object beschikbaar in je software
+features = [
+    # zie 3.4.1. Device feature parameter
+    # DeviceInformation Section
+    # ImageFormat Section
+    # TransportLayer Section
+    # DigitalIO Section
+    # AnalogControls Section
+    # CustomFeature Section
+    # UserSetControl Section
+    ("UserSetSelector", featureType.Enum),
+    ("UserSetLoad", featureType.Command),
+    # Event Section
+    # LUT Section
+    # Color Transformation Control
+    # ChunkData Section
+    # Device Feature
+    # AcquisitionTrigger Section
+    ("ExposureTime", featureType.Float),
+    ("TriggerSoftware", featureType.Command),
+    ("TriggerMode", featureType.Enum),
+    ("TriggerSource", featureType.Enum),
+    # CounterAndTimerControl Section
+    # RemoveParameterLimitControl Section
+    # Feature parameter
+]
+
 
 # ============================================================
 # Klasse: dahengCamera
@@ -85,12 +116,11 @@ class dahengCamera:
         image_process_config.enable_color_correction(False)
 
         # Definieer diverse camera-features (instellingen)
-        self.ExposureTime = dahengFeature(self.remote_device_feature, featureType.Float, "ExposureTime")
-        self.TriggerMode = dahengFeature(self.remote_device_feature, featureType.Enum, "TriggerMode")
-        self.TriggerSource = dahengFeature(self.remote_device_feature, featureType.Enum, "TriggerSource")
-        self.TriggerSoftware = dahengFeature(self.remote_device_feature, featureType.Command, "TriggerSoftware")
-        self.UserSetSelector = dahengFeature(self.remote_device_feature, featureType.Enum, "UserSetSelector")
-        self.UserSetLoad = dahengFeature(self.remote_device_feature, featureType.Command, "UserSetLoad")
+        for name, ftype in features:
+            if(self.remote_device_feature.is_implemented(name)):
+                setattr(self, name, dahengFeature(self.remote_device_feature, ftype, name))
+            else:
+                warnings.warn(f"Feature bestaat niet: {name}")
 
         # Laad de standaard gebruikersinstellingen van de camera
         self.UserSetSelector.set("Default")

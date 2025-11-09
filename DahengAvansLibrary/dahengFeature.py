@@ -6,6 +6,7 @@
 #
 
 from enum import Enum
+import warnings
 from sympy.strategies.core import switch  # (wordt hier niet gebruikt — mogelijk overbodig import)
 
 # ============================================================
@@ -19,6 +20,7 @@ class featureType(Enum):
     Bool = 4      # Boolean (True/False)
     Enum = 5      # Enumeratie (lijst van vooraf bepaalde waarden)
     Command = 6   # Commando (uitvoerbare actie)
+    Buffer = 7    # Buffer
 
 # ============================================================
 # Klasse: dahengFeature
@@ -55,9 +57,9 @@ class dahengFeature:
                 case featureType.Command:
                     self.feature = self.remote_device_feature.get_command_feature(self.feature_name)
                 case _:
-                    raise Exception("Ongeldig feature-type opgegeven")
+                    warnings.warn("Ongeldig feature-type opgegeven")
         except:
-            raise Exception(f"Kon feature niet ophalen: {self.feature_name}")
+            warnings.warn(f"Kon feature niet ophalen: {self.feature_name}")
             return None
 
     # ------------------------------------------------------------
@@ -76,11 +78,12 @@ class dahengFeature:
     # ------------------------------------------------------------
     def get_range(self):
         """Lees het bereik (min, max, stapgrootte) van de feature uit."""
-        try:
-            return self.feature.get_range()
-        except:
-            raise Exception(f"Kon bereik niet ophalen: {self.feature_name}")
-            return None
+        if(self.feature_type.value != featureType.Integer):
+            try:
+                return self.feature.get_range()
+            except:
+                warnings.warn(f"Kon bereik niet ophalen: {self.feature_name}")
+                return None
 
     def get(self):
         """Lees de huidige waarde van de feature uit (indien toegestaan)."""
@@ -90,7 +93,7 @@ class dahengFeature:
             else:
                 return None
         except:
-            raise Exception(f"Kon waarde niet lezen: {self.feature_name}")
+            warnings.warn(f"Kon waarde niet lezen: {self.feature_name}")
             return 0.0
 
     def set(self, value):
@@ -112,14 +115,14 @@ class dahengFeature:
                 case featureType.Enum:
                     write_value = value
                 case _:
-                    raise Exception("Ongeldig feature-type voor set-operatie")
+                    warnings.warn("Ongeldig feature-type voor set-operatie")
 
             # Alleen schrijven als de feature schrijfbaar is
             if self.is_writable():
                 self.feature.set(write_value)
 
         except:
-            raise Exception(f"Kon waarde niet instellen voor: {self.feature_name}")
+            warnings.warn(f"Kon waarde niet instellen voor: {self.feature_name}")
             return
 
     # ------------------------------------------------------------
@@ -130,5 +133,57 @@ class dahengFeature:
         try:
             if self.feature_type == featureType.Command:
                 self.feature.send_command()
+            else:
+                warnings.warn("Ongeldig feature-type voor send-command")
         except:
-            raise Exception(f"Kon commando niet uitvoeren: {self.feature_name}")
+            warnings.warn(f"Kon commando niet uitvoeren: {self.feature_name}")
+
+    # Functie om de maximale lengte van een string-feature op te vragen
+    def get_string_max_length(self):
+        if self.feature_type.value == featureType.String:
+            try:
+                return self.feature.get_string_max_length()
+            except:
+                # Waarschuwing tonen als de actie mislukt
+                warnings.warn(f"Kon waarde niet uitvoeren: {self.feature_name}")
+                return 0
+        else:
+            # Waarschuwing als het featuretype niet overeenkomt
+            warnings.warn(f"Feature '{self.feature_name}' is geen stringtype.")
+            return 0
+
+    # Functie om de bufferlengte op te vragen
+    def get_buffer_length(self):
+        if self.feature_type.value == featureType.Buffer:
+            try:
+                return self.feature.get_buffer_length()
+            except:
+                warnings.warn(f"Kon waarde niet uitvoeren: {self.feature_name}")
+                return 0
+        else:
+            warnings.warn(f"Feature '{self.feature_name}' is geen buffertype.")
+            return 0
+
+    # Functie om de buffer op te halen
+    def get_buffer(self):
+        if self.feature_type.value == featureType.Buffer:
+            try:
+                return self.feature.get_buffer()
+            except:
+                warnings.warn(f"Kon waarde niet uitvoeren: {self.feature_name}")
+                return None
+        else:
+            warnings.warn(f"Feature '{self.feature_name}' is geen buffertype.")
+            return None
+
+    # Functie om de buffer te zetten
+    def set_buffer(self, buffer):
+        if self.feature_type.value == featureType.Buffer:
+            try:
+                self.feature.set_buffer(buffer)
+            except:
+                warnings.warn(f"Kon waarde niet uitvoeren: {self.feature_name}")
+                return
+        else:
+            warnings.warn(f"Feature '{self.feature_name}' is geen buffertype.")
+            return

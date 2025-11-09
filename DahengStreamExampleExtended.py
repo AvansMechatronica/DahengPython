@@ -73,7 +73,7 @@ def main():
     cv2.namedWindow("Acquired Image")
 
     # Haal het bereik van de belichtingstijd op (min/max)
-    exp_range = camera.exposureTime.get_range()
+    exp_range = camera.ExposureTime.get_range()
     print(f"ExposureTime bereik: {exp_range}")
 
     # Maak een schuifbalk in het venster voor dynamische aanpassing
@@ -86,7 +86,7 @@ def main():
     )
 
     # Lees huidige belichtingstijd uit en stel schuifbalk daarop in
-    et = camera.exposureTime.get()
+    et = camera.ExposureTime.get()
     print(f"Huidige ExposureTime: {et}")
     cv2.setTrackbarPos("ExposureTime", "Acquired Image", int(et))
 
@@ -98,7 +98,7 @@ def main():
         new_et = cv2.getTrackbarPos("ExposureTime", "Acquired Image")
 
         # Pas de belichtingstijd van de camera aan
-        camera.exposureTime.set(new_et)
+        camera.ExposureTime.set(new_et)
 
         # Haal een nieuw frame op van de camera
         image = camera.grab_frame()

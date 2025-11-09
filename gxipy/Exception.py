@@ -195,4 +195,4 @@ def exception_deal(status, args):
     elif status == GxStatusList.REPEAT_OPENED:
         raise InvalidAccess(args)
     else:
-        raise Exception(args)
+        warnings.warn(args)
