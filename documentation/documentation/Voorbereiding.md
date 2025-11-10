@@ -26,7 +26,7 @@ Je kunt de Library op twee manieren verkrijgen:
 :::{tab-item} Zip-file
 [Download DahengPython Library](https://github.com/AvansMechatronica/DahengPython/archive/refs/heads/main.zip)
 Pak het bestand uit in een voor jou bekende map.
-
+:::
 :::{tab-item} GIT
 * Maak een account aan bij [Github](https://github.com/) en login op dit account.
 
