@@ -41,9 +41,12 @@ features = [
     # zie 3.4.1. Device feature parameter
     # DeviceInformation Section
     # ImageFormat Section
+    ("BinningHorizontal", featureType.Integer),
+    ("BinningVertical", featureType.Integer),
     # TransportLayer Section
     # DigitalIO Section
     # AnalogControls Section
+    ("Gain", featureType.Float),
     # CustomFeature Section
     # UserSetControl Section
     ("UserSetSelector", featureType.Enum),

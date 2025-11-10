@@ -21,9 +21,9 @@ Auteur:  Gerard Harkema
 Datum:   2025-09-19
 Versie:  1.00 (initiële versie)
 """
+from DahengAvansLibrary.dahengFeature import featureType
 
-# Schaalfactor voor het weergegeven beeld (verkleint om prestaties te verbeteren)
-image_scale_factor = 0.3
+
 
 # ------------------------------------------------------------
 # Importeren van benodigde bibliotheken
@@ -54,6 +54,20 @@ def main():
     # --------------------------------------------------------
     # Start de videostream van de camera
     # --------------------------------------------------------
+    print(f"Binning Horizontal Range: {camera.BinningHorizontal.get_range()}")
+    print(f"Binning Vertical Range: {camera.BinningVertical.get_range()}")
+
+    # Stel de horizontale binningfactor in op 4
+    # Binning combineert meerdere pixels tot één grotere 'superpixel'.
+    # Dit verhoogt de lichtgevoeligheid, maar verlaagt de resolutie.
+    camera.BinningHorizontal.set(4)
+
+    # Stel de verticale binningfactor in op 4
+    # Hierdoor worden telkens 4 pixels verticaal gecombineerd.
+    # Dit resulteert in een kleinere afbeelding, maar met minder ruis en hogere lichtopbrengst.
+    camera.BinningVertical.set(4)
+
+
     camera.startStream()
 
     # --------------------------------------------------------
@@ -65,17 +79,9 @@ def main():
 
         # Controleer of een geldig beeld is ontvangen
         if image is not None:
-            # Verklein het beeld voor weergave (optioneel)
-            resized = cv2.resize(
-                image,
-                None,
-                fx=image_scale_factor,
-                fy=image_scale_factor,
-                interpolation=cv2.INTER_AREA
-            )
 
             # Toon het verkleinde beeld in een OpenCV-venster
-            cv2.imshow("Acquired Image", resized)
+            cv2.imshow("Acquired Image", image)
 
             # Controleer of gebruiker op 'q' drukt om te stoppen
             if cv2.waitKey(1) & 0xFF == ord('q'):

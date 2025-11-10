@@ -30,16 +30,11 @@ Versie:  1.00 (initiële versie)
 from DahengAvansLibrary.dahengLibrary import dahengCamera  # Wrapper voor Daheng-camera’s
 import cv2                                                  # OpenCV voor beeldverwerking
 
-# Schaalfactor om beelden kleiner weer te geven (voor snelheid)
-image_scale_factor = 0.3
-
 
 # ------------------------------------------------------------
 # Callbackfunctie voor de OpenCV-trackbar
 # ------------------------------------------------------------
 def rangeCb(value):
-    """Callback die wordt aangeroepen wanneer de schuifbalk wordt aangepast."""
-    print(f"Nieuwe ExposureTime waarde (callback): {value}")
     pass  # Geen verdere actie nodig – de waarde wordt in de hoofdloop opgehaald
 
 
@@ -62,6 +57,16 @@ def main():
     print("✅ Camera geopend.")
     print("Druk op [q] en dan [Enter] om het programma te stoppen.")
 
+    # Stel de horizontale binningfactor in op 4
+    # Binning combineert meerdere pixels tot één grotere 'superpixel'.
+    # Dit verhoogt de lichtgevoeligheid, maar verlaagt de resolutie.
+    camera.BinningHorizontal.set(4)
+
+    # Stel de verticale binningfactor in op 4
+    # Hierdoor worden telkens 4 pixels verticaal gecombineerd.
+    # Dit resulteert in een kleinere afbeelding, maar met minder ruis en hogere lichtopbrengst.
+    camera.BinningVertical.set(4)
+
     # --------------------------------------------------------
     # Start de beeldstream
     # --------------------------------------------------------
@@ -70,52 +75,63 @@ def main():
     # --------------------------------------------------------
     # Maak OpenCV-venster en trackbar voor ExposureTime
     # --------------------------------------------------------
-    cv2.namedWindow("Acquired Image")
+    window_name = "Acquired Image"
+    cv2.namedWindow(window_name)
 
     # Haal het bereik van de belichtingstijd op (min/max)
     exp_range = camera.ExposureTime.get_range()
     print(f"ExposureTime bereik: {exp_range}")
 
+    gain_range = camera.Gain.get_range()
+    print(f"Bain bereik: {exp_range}")
+
+
     # Maak een schuifbalk in het venster voor dynamische aanpassing
     cv2.createTrackbar(
         "ExposureTime",
-        "Acquired Image",
+        window_name,
         int(exp_range["min"] + 1),  # startwaarde
         int(exp_range["max"]),      # maximumwaarde
+        rangeCb                     # callbackfunctie
+    )
+
+    cv2.createTrackbar(
+        "Gain",
+        window_name,
+        int(gain_range["min"] + 1),  # startwaarde
+        int(gain_range["max"]),      # maximumwaarde
         rangeCb                     # callbackfunctie
     )
 
     # Lees huidige belichtingstijd uit en stel schuifbalk daarop in
     et = camera.ExposureTime.get()
     print(f"Huidige ExposureTime: {et}")
-    cv2.setTrackbarPos("ExposureTime", "Acquired Image", int(et))
+    cv2.setTrackbarPos("ExposureTime", window_name, int(et))
+
+    gain = camera.Gain.get()
+    print(f"Huidige Gain: {gain}")
+    cv2.setTrackbarPos("Gain", window_name, int(gain))
 
     # --------------------------------------------------------
     # Hoofd-lus: beelden ophalen en tonen
     # --------------------------------------------------------
     while True:
         # Lees de actuele waarde van de schuifbalk
-        new_et = cv2.getTrackbarPos("ExposureTime", "Acquired Image")
+        new_et = cv2.getTrackbarPos("ExposureTime", window_name)
+        new_gain = cv2.getTrackbarPos("Gain", window_name)
 
         # Pas de belichtingstijd van de camera aan
         camera.ExposureTime.set(new_et)
+        camera.Gain.set(new_gain)
 
         # Haal een nieuw frame op van de camera
         image = camera.grab_frame()
 
         # Controleer of een geldig beeld is ontvangen
         if image is not None:
-            # Verklein het beeld (optioneel)
-            resized = cv2.resize(
-                image,
-                None,
-                fx=image_scale_factor,
-                fy=image_scale_factor,
-                interpolation=cv2.INTER_AREA
-            )
 
             # Toon het beeld
-            cv2.imshow("Acquired Image", resized)
+            cv2.imshow(window_name, image)
 
             # Stopconditie: druk op 'q'
             if cv2.waitKey(1) & 0xFF == ord("q"):

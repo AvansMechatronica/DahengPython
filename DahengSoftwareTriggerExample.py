@@ -50,6 +50,16 @@ def main():
         print("❌ Geen camera gevonden of kan camera niet openen.")
         return
 
+    # Stel de horizontale binningfactor in op 4
+    # Binning combineert meerdere pixels tot één grotere 'superpixel'.
+    # Dit verhoogt de lichtgevoeligheid, maar verlaagt de resolutie.
+    camera.BinningHorizontal.set(4)
+
+    # Stel de verticale binningfactor in op 4
+    # Hierdoor worden telkens 4 pixels verticaal gecombineerd.
+    # Dit resulteert in een kleinere afbeelding, maar met minder ruis en hogere lichtopbrengst.
+    camera.BinningVertical.set(4)
+
     # --------------------------------------------------------
     # Stel camera in op software-trigger modus
     # --------------------------------------------------------
