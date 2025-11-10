@@ -11,7 +11,7 @@ https://en.daheng-imaging.com/index.php?m=content&c=index&a=file_down&id=1462&f=
 
 
 * [Daheng Phyton manual](PythonInterfaceDevelopmentUserManual.pdf)
-
+---
 
 Onderstaande web-pagina's kun je gebruiken als naslag werk voor het schrijven van vision software met gebruik van OpenCV.
 
