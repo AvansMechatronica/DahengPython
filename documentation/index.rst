@@ -28,7 +28,6 @@ Er wordt daarbij uitgegaan van een Windows operating systeem met daarop als Inte
    documentation/ReferentieMateriaal.md
 
 
-
 Deze handleiding is ontwikkeld door:
 
 + Avans Academie voor Technologie en Innovatie (ATIx)
