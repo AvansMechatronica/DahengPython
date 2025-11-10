@@ -67,6 +67,15 @@ def main():
     # Dit resulteert in een kleinere afbeelding, maar met minder ruis en hogere lichtopbrengst.
     camera.BinningVertical.set(4)
 
+    # Verhoog de huidige belichtingstijd 10x
+    # camera.ExposureTime.get() haalt de huidige waarde op in microseconden of milliseconden
+    # camera.ExposureTime.set(...) stelt vervolgens de nieuwe waarde in
+    camera.ExposureTime.set(camera.ExposureTime.get() * 10)
+
+    # Stel de gain van de camera in op 24
+    # Gain verhoogt de gevoeligheid van de sensor, maar kan ruis versterken
+    #camera.Gain.set(24)
+    camera.GainAuto.set('Continuous')
 
     camera.startStream()
 

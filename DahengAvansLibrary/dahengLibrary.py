@@ -47,6 +47,7 @@ features = [
     # DigitalIO Section
     # AnalogControls Section
     ("Gain", featureType.Float),
+    ("GainAuto", featureType.Enum),
     # CustomFeature Section
     # UserSetControl Section
     ("UserSetSelector", featureType.Enum),

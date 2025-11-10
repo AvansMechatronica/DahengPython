@@ -83,7 +83,7 @@ def main():
     print(f"ExposureTime bereik: {exp_range}")
 
     gain_range = camera.Gain.get_range()
-    print(f"Bain bereik: {exp_range}")
+    print(f"Gain bereik: {gain_range}")
 
 
     # Maak een schuifbalk in het venster voor dynamische aanpassing
