@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Avans: Daheng Camera Python Library'
+project = 'Avans: Daheng Camera Library voor Python'
 copyright = 'Avans ATIx: Gerard Harkema'
 author = 'Gerard Harkema'
 release = '0.1'
