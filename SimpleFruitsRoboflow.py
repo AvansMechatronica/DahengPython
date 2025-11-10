@@ -9,7 +9,7 @@ and runs inference directly on frames captured from a Daheng camera.
 """
 
 from PIL.ImageMath import imagemath_equal  # (unused import, can be removed)
-from DahengAvansLibrary.dahengLibrary import dahengCamera
+from DahengAvansLibrary.dahengCameraLibrary import dahengCamera
 from roboflow import Roboflow
 import cv2
 import time

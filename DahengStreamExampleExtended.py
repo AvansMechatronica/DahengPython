@@ -27,7 +27,7 @@ Versie:  1.00 (initiële versie)
 # ------------------------------------------------------------
 # Imports
 # ------------------------------------------------------------
-from DahengAvansLibrary.dahengLibrary import dahengCamera  # Wrapper voor Daheng-camera’s
+from DahengAvansLibrary.dahengCameraLibrary import dahengCamera  # Wrapper voor Daheng-camera’s
 import cv2                                                  # OpenCV voor beeldverwerking
 
 

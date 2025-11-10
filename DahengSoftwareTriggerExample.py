@@ -26,7 +26,7 @@ Versie:  1.00 (initiële versie)
 # ------------------------------------------------------------
 # Imports
 # ------------------------------------------------------------
-from DahengAvansLibrary.dahengLibrary import dahengCamera  # Daheng wrapper voor camera
+from DahengAvansLibrary.dahengCameraLibrary import dahengCamera  # Daheng wrapper voor camera
 import cv2       # OpenCV voor beeldweergave
 import time      # Voor vertragingen
 import threading # Voor multithreading
@@ -34,7 +34,7 @@ import threading # Voor multithreading
 # ------------------------------------------------------------
 # Globale variabelen
 # ------------------------------------------------------------
-camera = 0                  # Wordt later geïnitialiseerd in main()
+camera = None                   # Wordt later geïnitialiseerd in main()
 stop_event = threading.Event()  # Event om threads netjes te stoppen
 
 # ------------------------------------------------------------

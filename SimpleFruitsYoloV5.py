@@ -8,7 +8,7 @@ import torch
 import numpy as np
 import cv2
 import time
-from DahengAvansLibrary.dahengLibrary import dahengCamera
+from DahengAvansLibrary.dahengCameraLibrary import dahengCamera
 
 
 class YoloV5Detector:

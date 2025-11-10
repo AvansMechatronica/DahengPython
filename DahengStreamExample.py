@@ -28,7 +28,7 @@ from DahengAvansLibrary.dahengFeature import featureType
 # ------------------------------------------------------------
 # Importeren van benodigde bibliotheken
 # ------------------------------------------------------------
-from DahengAvansLibrary.dahengLibrary import dahengCamera  # Eigen wrapper rond de Daheng SDK
+from DahengAvansLibrary.dahengCameraLibrary import dahengCamera  # Eigen wrapper rond de Daheng SDK
 import cv2  # OpenCV voor beeldverwerking en weergave
 
 

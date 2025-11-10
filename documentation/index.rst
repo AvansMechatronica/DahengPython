@@ -3,11 +3,16 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welkom bij Avans: Daheng Camera Python Library
+Welkom bij Avans: Daheng Camera Library voor Python
 ==========================================================
 
-**Avans: Daheng Camera Python Library**
-Dit is een Handleiding voor gebruikers die een Daheng camera software willen ontwikkelen in Python
+**Avans: Daheng Camera Library voor Python**
+Dit is een handleiding voor gebruikers die een Daheng camera software willen ontwikkelen in Python.
+In deze handleiding wordt exact beschreven hoe benodigde software en gereedschap kan worden gebruikt.
+Er wordt daarbij uitgegaan van een Windows operating systeem met daarop als Integrated Development Environmet(IDE) van pyCharm.
+
+
+
 
 .. note::
    This project is under active development.
@@ -18,6 +23,9 @@ Dit is een Handleiding voor gebruikers die een Daheng camera software willen ont
    :caption: Contents:
 
    documentation/Voorbereiding.md
+   documentation/VoorbeeldProgrammas.md
+   documentation/BibliotheekFuncties.md
+   documentation/ReferentieMateriaal.md
 
 
 

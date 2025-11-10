@@ -243,4 +243,5 @@ class dahengCamera:
 
     def __del__(self):
         """Zorg ervoor dat de camera netjes wordt afgesloten bij vernietiging van het object."""
-        self.close()
+        if self.open:
+            self.close()
