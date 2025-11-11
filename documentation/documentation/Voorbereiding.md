@@ -3,7 +3,7 @@
 ## Under construction
 ## Installatie Python
 
-Download de laatset versie van Python van af de [Python-website](https://www.python.org/downloads/).
+Download de laatset versie van Python vanaf de [Python-website](https://www.python.org/downloads/).
 Voer de installatie uit!
 >Let op: 
 >* Vink "Add Python to PATH" aan (belangrijk!)
@@ -13,13 +13,13 @@ Voer de installatie uit!
 
 ## Installatie PyCharm
 PyCharm is een Integrated Development Environment om eenvoudig Python programmas te ontwikkelen'.
-Download de laatse versie van Python van af de [PyCharm-website](https://www.jetbrains.com/pycharm/download/?section=windows)
+Download de laatste versie van Python vanaf de [PyCharm-website](https://www.jetbrains.com/pycharm/download/?section=windows)
 Voer de installatie uit!
 
 ## Verkrijgen van de Avans Camera Library voor Python
 Je kunt de Library op twee manieren verkrijgen:
-* Download als zip-bestand, er is nog geen versiebeheer met b.v. Github mogelijk
-* Fork maken in Github, hierna is de Library beschikbaar in je eigen Github account en kun je versiebheermet GIT uitvoeren.
+* Download als zip-bestand, er is nog geen versiebeheer met bijvoorbeeld Github mogelijk
+* Fork maken in Github, hierna is de Library beschikbaar in je eigen Github account en kun je versiebheer met GIT uitvoeren.
 
 :::::{card} 
 ::::{tab-set}
@@ -43,7 +43,7 @@ Navigeer in een command-console(cmd) naar een voor jou bekende map. Je kunt je r
 git clone https://github.com/<jou_account_naam>/DahengPython
 ```
 
-je kunt vervolgens versiebeheer doen met de volgende command-console(cmd) commando's
+Je kunt vervolgens versiebeheer doen met de volgende command-console(cmd) commando's
 * git add .
 * git commit -m "jou bericht"
 * git push
@@ -55,7 +55,7 @@ je kunt vervolgens versiebeheer doen met de volgende command-console(cmd) comman
 
 
 # Python Environmet
-Een Python-environment (omgeving) is eigenlijk een afzonderlijke “werkruimte” voor Python waarin je je programma’s draait en afhankelijkheden (libraries) installeert.
+Een Python-environment (omgeving) is eigenlijk een afzonderlijke “werkruimte” voor Python waarin je programma’s draait en afhankelijkheden (libraries) installeert.
 
 PyCharm maakt gebruik van virtuele environments:
 * Een lokaal, geïsoleerd Python-systeem voor één project.
@@ -78,12 +78,12 @@ bevestig met *Ok*
 Open de PyCharm terminal window, door het juiste icoon te activeren(hieronder in blauw weergegeven, kan bij jezelf een andere kleur hebben)
 ![image](../images/PythonTerminal.jpg)
 
->Controleer of de regel waarop je een commando kun uitvoeren begint met (.env). Zo niet sluit PyCharm af en start het programma weer opnieuw.
+>Controleer of de regel waarop je een commando kunt uitvoeren begint met (.env). Zo niet sluit PyCharm af en start het programma weer opnieuw.
 
 Je kunt nu de externe libaries instaleren met het volgende commando
 ```bash
 pip install -r .\requirements.txt
 ```
 
-Hierna is je programmeer omgevening gereed voor gebruik. Happy coding !!!
+Hierna is de programmeeromgeving gereed voor gebruik. 😃Happy coding !!!
 
