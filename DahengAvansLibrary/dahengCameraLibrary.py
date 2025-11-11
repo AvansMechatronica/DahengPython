@@ -92,6 +92,7 @@ class dahengCamera:
             if(self.remote_device_feature.is_implemented(name)):
                 setattr(self, name, dahengFeature(self.remote_device_feature, ftype, name))
             else:
+                setattr(self, name, dahengDummyFeature(self.remote_device_feature, ftype, name))
                 warnings.warn(f"Feature bestaat niet: {name}")
 
         # Laad de standaard gebruikersinstellingen van de camera

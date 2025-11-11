@@ -10,13 +10,6 @@ import warnings
 from DahengAvansLibrary.dahengFeatureList import *
 from sympy.strategies.core import switch  # (wordt hier niet gebruikt — mogelijk overbodig import)
 
-
-
-# ============================================================
-# Klasse: dahengFeature
-# Doel: algemene interface voor het lezen, schrijven en aansturen
-#       van features op de Daheng-camera
-# ============================================================
 class dahengFeature:
     def __init__(self, remote_device_feature, feature_type: featureType, feature_name):
         """
@@ -177,3 +170,86 @@ class dahengFeature:
         else:
             warnings.warn(f"Feature '{self.feature_name}' is geen buffertype.")
             return
+
+# ============================================================
+# Klasse: dahengDummyFeature
+# Doel: algemene interface voor het lezen, schrijven en aansturen
+#       van features op de Daheng-camera
+# ============================================================
+class dahengDummyFeature:
+    def __init__(self, remote_device_feature, feature_type: featureType, feature_name):
+        """
+        Constructor voor een Daheng dummy feature.
+
+        Parameters:
+        - remote_device_feature: object dat toegang geeft tot de features van het apparaat
+        - feature_type: type van de feature (zie featureType)
+        - feature_name: naam van de feature in de SDK
+        """
+        self.remote_device_feature = remote_device_feature
+        self.feature_name = feature_name
+        self.feature_type = feature_type
+        warnings.warn(f"Feature bestaat niet: {self.feature_name}")
+
+    # ------------------------------------------------------------
+    # Controlefuncties
+    # ------------------------------------------------------------
+    def is_readable(self):
+        """Controleer of de feature uitleesbaar is."""
+        warnings.warn(f"Feature bestaat niet: {self.feature_name}.is_readable()")
+        return False
+
+    def is_writable(self):
+        """Controleer of de feature schrijfbaar is."""
+        warnings.warn(f"Feature bestaat niet: {self.feature_name}.is_writable()")
+        return False
+
+    # ------------------------------------------------------------
+    # Waardefuncties
+    # ------------------------------------------------------------
+    def get_range(self):
+        """Lees het bereik (min, max, stapgrootte) van de feature uit."""
+        warnings.warn(f"Feature bestaat niet: {self.feature_name}.get_range()")
+        return None
+
+    def get(self):
+        """Lees de huidige waarde van de feature uit (indien toegestaan)."""
+        warnings.warn(f"Feature bestaat niet: {self.feature_name}.get()")
+        return None
+
+    def set(self, value):
+        """
+        Stel de waarde van de feature in, afhankelijk van het type.
+        Controleert eerst of de feature schrijfbaar is.
+        """
+        warnings.warn(f"Feature bestaat niet: {self.feature_name}.set()")
+
+    # ------------------------------------------------------------
+    # Commandofunctie
+    # ------------------------------------------------------------
+    def send_command(self):
+        """Voer een commando-type feature uit (zoals 'trigger' of 'reset')."""
+        warnings.warn(f"Feature bestaat niet: {self.feature_name}.send_command()")
+
+
+    # Functie om de maximale lengte van een string-feature op te vragen
+    def get_string_max_length(self):
+        warnings.warn(f"Feature bestaat niet: {self.feature_name}.get_string_max_length()")
+        return 0
+
+    # Functie om de bufferlengte op te vragen
+    def get_buffer_length(self):
+        warnings.warn(f"Feature bestaat niet: {self.feature_name}.get_buffer_length()")
+        return 0
+
+    # Functie om de buffer op te halen
+    def get_buffer(self):
+        warnings.warn(f"Feature bestaat niet: {self.feature_name}.get_buffer()")
+        return None
+
+    # Functie om de buffer te zetten
+    def set_buffer(self, buffer):
+        warnings.warn(f"Feature bestaat niet: {self.feature_name}.set_buffer()")
+
+
+
