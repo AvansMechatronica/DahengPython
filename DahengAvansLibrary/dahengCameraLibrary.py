@@ -55,8 +55,12 @@ class dahengCamera:
     def __init__(self, device_index, debug=False):
         """Initialiseer de camera-interface en open de opgegeven camera-index."""
         self.debug = debug
-        if self.debug:
-            print("<DahengCamera: init camera>")
+        if not debug:
+            # ❌ Logging ban info uitzetten
+            logger.addFilter(HideInfoFilter())
+        else:
+            logger.info("<DahengCamera: init camera>")
+
 
         # Maak een DeviceManager-object aan om beschikbare camera’s te beheren
         self.device_manager = gx.DeviceManager()
@@ -75,7 +79,7 @@ class dahengCamera:
         dev_num, self.dev_info_list = self.device_manager.update_all_device_list()
         if dev_num == 0:
             if self.debug:
-                print("<DahengCamera: Geen camera gevonden>")
+                logger.info("<DahengCamera: Geen camera gevonden>")
             self.open = False
             return
 
@@ -93,7 +97,7 @@ class dahengCamera:
                 setattr(self, name, dahengFeature(self.remote_device_feature, ftype, name))
             else:
                 setattr(self, name, dahengDummyFeature(self.remote_device_feature, ftype, name))
-                warnings.warn(f"Feature bestaat niet: {name}")
+                logger.error(f"Feature bestaat niet: {name}")
 
         # Laad de standaard gebruikersinstellingen van de camera
         self.UserSetSelector.set("Default")
@@ -101,11 +105,11 @@ class dahengCamera:
 
         # Toon camera-informatie bij debugmodus
         if self.debug:
-            print("<DahengCamera: ***********************************************>")
-            print(f"<Vendor Name:   {self.dev_info_list[0]['vendor_name']}>")
-            print(f"<Model Name:    {self.dev_info_list[0]['model_name']}>")
-            print(f"<Serial Number: {self.dev_info_list[0]['sn']}>")
-            print("<DahengCamera: ***********************************************>")
+            logger.info("<DahengCamera: ***********************************************>")
+            logger.info(f"<Vendor Name:   {self.dev_info_list[0]['vendor_name']}>")
+            logger.info(f"<Model Name:    {self.dev_info_list[0]['model_name']}>")
+            logger.info(f"<Serial Number: {self.dev_info_list[0]['sn']}>")
+            logger.info("<DahengCamera: ***********************************************>")
 
         self.open = True
 
@@ -175,7 +179,7 @@ class dahengCamera:
         self.image_convert.convert(raw_image, output_image, buffer_out_size, False)
         if output_image is None:
             if self.debug:
-                print("<DahengCamera: Conversie van RawImage naar RGBImage mislukt>")
+                logger.error("<DahengCamera: Conversie van RawImage naar RGBImage mislukt>")
             return
 
         return output_image_array, buffer_out_size
@@ -184,11 +188,11 @@ class dahengCamera:
         """Neem één frame op, converteer naar BGR (OpenCV-formaat) en retourneer als NumPy-array."""
         self.frame_counter += 1
         if self.debug:
-            print(f"<DahengCamera: grab_frame {self.frame_counter}>")
+            logger.info(f"<DahengCamera: grab_frame {self.frame_counter}>")
 
         if not self.open:
             if self.debug:
-                print("<DahengCamera: camera niet open>")
+                logger.error("<DahengCamera: camera niet open>")
             return None
 
         try:
@@ -196,7 +200,7 @@ class dahengCamera:
             raw_image = self.cam.data_stream[0].get_image(timeout)
             if raw_image is None:
                 if self.debug:
-                    print("<DahengCamera: Beeld ophalen mislukt>")
+                    logger.error("<DahengCamera: Beeld ophalen mislukt>")
                 return None
 
             # Indien het beeld niet RGB is, converteer het eerst
@@ -232,13 +236,13 @@ class dahengCamera:
 
         except Exception as ex:
             if self.debug:
-                print(f"Fout bij grab_frame: {str(ex)}")
+                logger.error(f"Fout bij grab_frame: {str(ex)}")
             return None
 
     def close(self):
         """Sluit de camera en geef alle resources vrij."""
         if self.debug:
-            print("<DahengCamera: Close camera>")
+            logger.info("<DahengCamera: Close camera>")
         self.cam.close_device()
         self.open = False
 

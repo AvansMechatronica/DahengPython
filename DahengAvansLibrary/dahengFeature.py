@@ -7,6 +7,9 @@
 
 
 import warnings
+from .dahengLogging import *
+
+
 from DahengAvansLibrary.dahengFeatureList import *
 from sympy.strategies.core import switch  # (wordt hier niet gebruikt — mogelijk overbodig import)
 
@@ -40,9 +43,9 @@ class dahengFeature:
                 case featureType.Command:
                     self.feature = self.remote_device_feature.get_command_feature(self.feature_name)
                 case _:
-                    warnings.warn("Ongeldig feature-type opgegeven")
+                    logger.error("Ongeldig feature-type opgegeven")
         except:
-            warnings.warn(f"Kon feature niet ophalen: {self.feature_name}")
+            logger.error(f"Kon feature niet ophalen: {self.feature_name}")
             return None
 
     # ------------------------------------------------------------
@@ -65,7 +68,7 @@ class dahengFeature:
             try:
                 return self.feature.get_range()
             except:
-                warnings.warn(f"Kon bereik niet ophalen: {self.feature_name}")
+                logger.error(f"Kon bereik niet ophalen: {self.feature_name}")
                 return None
 
     def get(self):
@@ -76,7 +79,7 @@ class dahengFeature:
             else:
                 return None
         except:
-            warnings.warn(f"Kon waarde niet lezen: {self.feature_name}")
+            logger.error(f"Kon waarde niet lezen: {self.feature_name}")
             return 0.0
 
     def set(self, value):
@@ -98,14 +101,14 @@ class dahengFeature:
                 case featureType.Enum:
                     write_value = value
                 case _:
-                    warnings.warn("Ongeldig feature-type voor set-operatie")
+                    logger.error("Ongeldig feature-type voor set-operatie")
 
             # Alleen schrijven als de feature schrijfbaar is
             if self.is_writable():
                 self.feature.set(write_value)
 
         except:
-            warnings.warn(f"Kon waarde niet instellen voor: {self.feature_name}")
+            logger.error(f"Kon waarde niet instellen voor: {self.feature_name}")
             return
 
     # ------------------------------------------------------------
@@ -117,9 +120,9 @@ class dahengFeature:
             if self.feature_type == featureType.Command:
                 self.feature.send_command()
             else:
-                warnings.warn("Ongeldig feature-type voor send-command")
+                logger.error("Ongeldig feature-type voor send-command")
         except:
-            warnings.warn(f"Kon commando niet uitvoeren: {self.feature_name}")
+            logger.error(f"Kon commando niet uitvoeren: {self.feature_name}")
 
     # Functie om de maximale lengte van een string-feature op te vragen
     def get_string_max_length(self):
@@ -128,11 +131,11 @@ class dahengFeature:
                 return self.feature.get_string_max_length()
             except:
                 # Waarschuwing tonen als de actie mislukt
-                warnings.warn(f"Kon waarde niet uitvoeren: {self.feature_name}")
+                logger.error(f"Kon waarde niet uitvoeren: {self.feature_name}")
                 return 0
         else:
             # Waarschuwing als het featuretype niet overeenkomt
-            warnings.warn(f"Feature '{self.feature_name}' is geen stringtype.")
+            logger.error(f"Feature '{self.feature_name}' is geen stringtype.")
             return 0
 
     # Functie om de bufferlengte op te vragen
@@ -141,10 +144,10 @@ class dahengFeature:
             try:
                 return self.feature.get_buffer_length()
             except:
-                warnings.warn(f"Kon waarde niet uitvoeren: {self.feature_name}")
+                logger.error(f"Kon waarde niet uitvoeren: {self.feature_name}")
                 return 0
         else:
-            warnings.warn(f"Feature '{self.feature_name}' is geen buffertype.")
+            logger.error(f"Feature '{self.feature_name}' is geen buffertype.")
             return 0
 
     # Functie om de buffer op te halen
@@ -153,10 +156,10 @@ class dahengFeature:
             try:
                 return self.feature.get_buffer()
             except:
-                warnings.warn(f"Kon waarde niet uitvoeren: {self.feature_name}")
+                logger.error(f"Kon waarde niet uitvoeren: {self.feature_name}")
                 return None
         else:
-            warnings.warn(f"Feature '{self.feature_name}' is geen buffertype.")
+            logger.error(f"Feature '{self.feature_name}' is geen buffertype.")
             return None
 
     # Functie om de buffer te zetten
@@ -165,10 +168,10 @@ class dahengFeature:
             try:
                 self.feature.set_buffer(buffer)
             except:
-                warnings.warn(f"Kon waarde niet uitvoeren: {self.feature_name}")
+                logger.error(f"Kon waarde niet uitvoeren: {self.feature_name}")
                 return
         else:
-            warnings.warn(f"Feature '{self.feature_name}' is geen buffertype.")
+            logger.error(f"Feature '{self.feature_name}' is geen buffertype.")
             return
 
 # ============================================================
@@ -189,19 +192,19 @@ class dahengDummyFeature:
         self.remote_device_feature = remote_device_feature
         self.feature_name = feature_name
         self.feature_type = feature_type
-        warnings.warn(f"Feature bestaat niet: {self.feature_name}")
+        logger.error(f"Feature bestaat niet: {self.feature_name}")
 
     # ------------------------------------------------------------
     # Controlefuncties
     # ------------------------------------------------------------
     def is_readable(self):
         """Controleer of de feature uitleesbaar is."""
-        warnings.warn(f"Feature bestaat niet: {self.feature_name}.is_readable()")
+        logger.error(f"Feature bestaat niet: {self.feature_name}.is_readable()")
         return False
 
     def is_writable(self):
         """Controleer of de feature schrijfbaar is."""
-        warnings.warn(f"Feature bestaat niet: {self.feature_name}.is_writable()")
+        logger.error(f"Feature bestaat niet: {self.feature_name}.is_writable()")
         return False
 
     # ------------------------------------------------------------
@@ -209,12 +212,12 @@ class dahengDummyFeature:
     # ------------------------------------------------------------
     def get_range(self):
         """Lees het bereik (min, max, stapgrootte) van de feature uit."""
-        warnings.warn(f"Feature bestaat niet: {self.feature_name}.get_range()")
+        logger.error(f"Feature bestaat niet: {self.feature_name}.get_range()")
         return None
 
     def get(self):
         """Lees de huidige waarde van de feature uit (indien toegestaan)."""
-        warnings.warn(f"Feature bestaat niet: {self.feature_name}.get()")
+        logger.error(f"Feature bestaat niet: {self.feature_name}.get()")
         return None
 
     def set(self, value):
@@ -222,34 +225,34 @@ class dahengDummyFeature:
         Stel de waarde van de feature in, afhankelijk van het type.
         Controleert eerst of de feature schrijfbaar is.
         """
-        warnings.warn(f"Feature bestaat niet: {self.feature_name}.set()")
+        logger.error(f"Feature bestaat niet: {self.feature_name}.set()")
 
     # ------------------------------------------------------------
     # Commandofunctie
     # ------------------------------------------------------------
     def send_command(self):
         """Voer een commando-type feature uit (zoals 'trigger' of 'reset')."""
-        warnings.warn(f"Feature bestaat niet: {self.feature_name}.send_command()")
+        logger.error(f"Feature bestaat niet: {self.feature_name}.send_command()")
 
 
     # Functie om de maximale lengte van een string-feature op te vragen
     def get_string_max_length(self):
-        warnings.warn(f"Feature bestaat niet: {self.feature_name}.get_string_max_length()")
+        logger.error(f"Feature bestaat niet: {self.feature_name}.get_string_max_length()")
         return 0
 
     # Functie om de bufferlengte op te vragen
     def get_buffer_length(self):
-        warnings.warn(f"Feature bestaat niet: {self.feature_name}.get_buffer_length()")
+        logger.error(f"Feature bestaat niet: {self.feature_name}.get_buffer_length()")
         return 0
 
     # Functie om de buffer op te halen
     def get_buffer(self):
-        warnings.warn(f"Feature bestaat niet: {self.feature_name}.get_buffer()")
+        logger.error(f"Feature bestaat niet: {self.feature_name}.get_buffer()")
         return None
 
     # Functie om de buffer te zetten
     def set_buffer(self, buffer):
-        warnings.warn(f"Feature bestaat niet: {self.feature_name}.set_buffer()")
+        logger.error(f"Feature bestaat niet: {self.feature_name}.set_buffer()")
 
 
 

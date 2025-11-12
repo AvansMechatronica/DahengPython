@@ -107,7 +107,12 @@ De lijst met features van de Daheng-camera is lang; daarom zijn niet alle featur
 Je kunt in het bestand *dahengFeatureList.py* in de map *DahengAvansLibrary* zelf extra features toevoegen.  
 Uiteraard kun je alleen features toevoegen die worden ondersteund door de Daheng-driver van de camera.
 
+
+
 Een volledige lijst met beschikbare features vind je in de  
 **[Daheng Python Manual](PythonInterfaceDevelopmentUserManual.pdf)**, Appendix 3.4.  
 
 > **Tip:** Gebruik de exacte namen en het juiste type zoals vermeld in de handleiding.
+
+>**Let op:** Als je een feature toevoegt met een naam die niet in de originele Daheng-driver bestaat, zal een je code een foutmelding krijgen bij het uitvoeren van de betreffende functie.
+Deze worden in de kleur rood weergegeven in je Terminal.

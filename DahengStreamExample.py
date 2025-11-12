@@ -40,9 +40,9 @@ def main():
     # --------------------------------------------------------
     # Argumenten:
     # - device_index: index van de camera (meestal 1 bij één aangesloten camera)
-    # - debug (optioneel): zet op True voor extra debuguitvoer
+    # - debug (optioneel): zet op True voor extra debug uitvoer
     # camera = dahengCamera(1, True)
-    camera = dahengCamera(1)
+    camera = dahengCamera(1,True)
 
     # Controleer of de camera succesvol is geopend
     if not camera.isOpen():

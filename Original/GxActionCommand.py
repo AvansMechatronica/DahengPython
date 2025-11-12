@@ -108,7 +108,7 @@ def show_scheduled_action_command(cam_list, device_manager):
             status_ok = (cam_ptp_status[1] == "Master" or cam_ptp_status[1] == "Slave")
 
         if not status_ok:
-            warnings.warn("PTP time calibration timeout")
+            logging.info("PTP time calibration timeout")
 
     print("setting success")
 
