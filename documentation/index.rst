@@ -12,7 +12,6 @@ In deze handleiding wordt exact beschreven hoe benodigde software en gereedschap
 Er wordt daarbij uitgegaan van een Windows operating systeem met daarop als Integrated Development Environmet(IDE) van pyCharm.
 
 
-
 .. note::
    Disclaimer: Deze documentatie is met zorg samengesteld. Desondanks kunnen er fouten in voorkomen. De auteur(s) aanvaarden geen enkele aansprakelijkheid voor eventuele schade die voortvloeit uit het gebruik van deze documentatie.
 

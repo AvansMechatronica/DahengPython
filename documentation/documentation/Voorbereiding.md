@@ -1,6 +1,5 @@
 # Voorbereidingen
 
-## Under construction
 ## Installatie Python
 
 Download de laatset versie van Python vanaf de [Python-website](https://www.python.org/downloads/).
