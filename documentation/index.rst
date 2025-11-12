@@ -13,9 +13,8 @@ Er wordt daarbij uitgegaan van een Windows operating systeem met daarop als Inte
 
 
 
-
 .. note::
-   This project is under active development.
+   Disclaimer: Deze documentatie is met zorg samengesteld. Desondanks kunnen er fouten in voorkomen. De auteur(s) aanvaarden geen enkele aansprakelijkheid voor eventuele schade die voortvloeit uit het gebruik van deze documentatie.
 
 
 .. toctree::
