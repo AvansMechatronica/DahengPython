@@ -1,6 +1,17 @@
 # Voorbereidingen
 
+<<<<<<< HEAD
+
+## Installatie Dahang Camera Drivers
+Download de laatste versie van de Daheng Camera Drivers van af de [Daheng-website](https://en.daheng-imaging.com/list-59-1.html)
+Installeer de volgende twee pakketten
+1. Galaxy Windows SDK
+2. Galaxy Windows Runtime SDK(???)
+
+=======
+>>>>>>> 779c43c73fc8b5cd222f1099739eb0a638b83580
 ## Installatie Python
+> Doe dit aleen als Python nog niet op je computer is geïnstalleerd.
 
 Download de laatset versie van Python vanaf de [Python-website](https://www.python.org/downloads/).
 Voer de installatie uit!
@@ -53,8 +64,13 @@ Je kunt vervolgens versiebeheer doen met de volgende command-console(cmd) comman
 :::::
 
 
+<<<<<<< HEAD
+## Python Environmet
+Een Python-environment (omgeving) is eigenlijk een afzonderlijke “werkruimte” voor Python waarin je je programma’s draait en afhankelijkheden (libraries) installeert.
+=======
 # Python Environmet
 Een Python-environment (omgeving) is eigenlijk een afzonderlijke “werkruimte” voor Python waarin je programma’s draait en afhankelijkheden (libraries) installeert.
+>>>>>>> 779c43c73fc8b5cd222f1099739eb0a638b83580
 
 PyCharm maakt gebruik van virtuele environments:
 * Een lokaal, geïsoleerd Python-systeem voor één project.
