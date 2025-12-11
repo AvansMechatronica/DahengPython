@@ -1,6 +1,5 @@
 # Voorbereidingen
 
-<<<<<<< HEAD
 
 ## Installatie Dahang Camera Drivers
 Download de laatste versie van de Daheng Camera Drivers van af de [Daheng-website](https://en.daheng-imaging.com/list-59-1.html)
@@ -8,8 +7,6 @@ Installeer de volgende twee pakketten
 1. Galaxy Windows SDK
 2. Galaxy Windows Runtime SDK(???)
 
-=======
->>>>>>> 779c43c73fc8b5cd222f1099739eb0a638b83580
 ## Installatie Python
 > Doe dit aleen als Python nog niet op je computer is geïnstalleerd.
 
