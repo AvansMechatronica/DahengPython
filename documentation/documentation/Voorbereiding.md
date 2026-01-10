@@ -61,13 +61,8 @@ Je kunt vervolgens versiebeheer doen met de volgende command-console(cmd) comman
 :::::
 
 
-<<<<<<< HEAD
 ## Python Environmet
 Een Python-environment (omgeving) is eigenlijk een afzonderlijke “werkruimte” voor Python waarin je je programma’s draait en afhankelijkheden (libraries) installeert.
-=======
-# Python Environmet
-Een Python-environment (omgeving) is eigenlijk een afzonderlijke “werkruimte” voor Python waarin je programma’s draait en afhankelijkheden (libraries) installeert.
->>>>>>> 779c43c73fc8b5cd222f1099739eb0a638b83580
 
 PyCharm maakt gebruik van virtuele environments:
 * Een lokaal, geïsoleerd Python-systeem voor één project.
