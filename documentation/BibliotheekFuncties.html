@@ -1,0 +1,258 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="nl" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python-bibliotheekfuncties voor een Daheng-camera &mdash; Avans: Daheng Camera Library voor Python 1.0 documentatie</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=70dd46bb"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/translations.js?v=e4d38c6a"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Zoeken" href="../search.html" />
+    <link rel="next" title="Referentie materiaal" href="ReferentieMateriaal.html" />
+    <link rel="prev" title="Voorbeeldprogramma’s" href="VoorbeeldProgrammas.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Avans: Daheng Camera Library voor Python
+              <img src="../_static/avans-hogeschool-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Zoek in documentatie" aria-label="Zoek in documentatie" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigatiemenu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Voorbereiding.html">Voorbereidingen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VoorbeeldProgrammas.html">Voorbeeldprogramma’s</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Python-bibliotheekfuncties voor een Daheng-camera</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#importeren-van-de-bibliotheek">Importeren van de bibliotheek</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#maak-verbinding-met-een-camera">Maak verbinding met een camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#start-een-camera-stream">Start een camera-stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#opvragen-van-een-image-foto-uit-de-camera">Opvragen van een image (foto) uit de camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#stoppen-van-de-stream">Stoppen van de stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#afsluiten-van-de-camera">Afsluiten van de camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#programmeren-van-camera-features">Programmeren van camera-features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#verkrijgen-van-het-bereik">Verkrijgen van het bereik</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verkrijgen-van-de-huidige-ingestelde-waarde">Verkrijgen van de huidige ingestelde waarde</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instellen-van-een-nieuwe-waarde">Instellen van een nieuwe waarde</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verzenden-van-een-commando">Verzenden van een commando</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zelf-features-toevoegen">Zelf features toevoegen</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ReferentieMateriaal.html">Referentie materiaal</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Navigatiemenu voor mobiel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Avans: Daheng Camera Library voor Python</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Paginanavigatie">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Python-bibliotheekfuncties voor een Daheng-camera</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/documentation/BibliotheekFuncties.md.txt" rel="nofollow"> Bekijk paginabron</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="python-bibliotheekfuncties-voor-een-daheng-camera">
+<h1>Python-bibliotheekfuncties voor een Daheng-camera<a class="headerlink" href="#python-bibliotheekfuncties-voor-een-daheng-camera" title="Link to this heading"></a></h1>
+<section id="importeren-van-de-bibliotheek">
+<h2>Importeren van de bibliotheek<a class="headerlink" href="#importeren-van-de-bibliotheek" title="Link to this heading"></a></h2>
+<p>In je software dien je de volgende bibliotheek op te nemen om controle te krijgen over een Daheng-camera.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">DahengAvansLibrary.dahengCameraLibrary</span> <span class="kn">import</span> <span class="n">dahengCamera</span>
+</pre></div>
+</div>
+</section>
+<section id="maak-verbinding-met-een-camera">
+<h2>Maak verbinding met een camera<a class="headerlink" href="#maak-verbinding-met-een-camera" title="Link to this heading"></a></h2>
+<p>Daheng-camera’s worden automatisch genummerd zodra je ze aansluit. De eerste camera heeft index <strong>1</strong>.<br />
+In onderstaand voorbeeld wordt een camera-object aangemaakt dat verwijst naar de eerst aangesloten camera.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">camera</span> <span class="o">=</span> <span class="n">dahengCamera</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Controleer of de camera succesvol is geopend</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">camera</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Geen camera gevonden of kan camera niet openen.&quot;</span><span class="p">)</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+</section>
+<section id="start-een-camera-stream">
+<h2>Start een camera-stream<a class="headerlink" href="#start-een-camera-stream" title="Link to this heading"></a></h2>
+<p>Nadat het camera-object is aangemaakt, dien je de camerastream te starten met onderstaande code.</p>
+<blockquote>
+<div><p><strong>Let op:</strong>: Doe dit niet in een (while-)loop.</p>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">camera</span><span class="o">.</span><span class="n">startStream</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="opvragen-van-een-image-foto-uit-de-camera">
+<h2>Opvragen van een image (foto) uit de camera<a class="headerlink" href="#opvragen-van-een-image-foto-uit-de-camera" title="Link to this heading"></a></h2>
+<p>Met onderstaande functie kun je een image van de camera verkrijgen.<br />
+Dit is een <strong>NumPy-array</strong>, die geschikt is voor gebruik met <strong>OpenCV</strong>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">image</span> <span class="o">=</span> <span class="n">camera</span><span class="o">.</span><span class="n">grab_frame</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="stoppen-van-de-stream">
+<h2>Stoppen van de stream<a class="headerlink" href="#stoppen-van-de-stream" title="Link to this heading"></a></h2>
+<p>Als je tijdelijk het streamen van de camera wilt stoppen, kan dat met de volgende functie:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">camera</span><span class="o">.</span><span class="n">stopStream</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="afsluiten-van-de-camera">
+<h2>Afsluiten van de camera<a class="headerlink" href="#afsluiten-van-de-camera" title="Link to this heading"></a></h2>
+<p>Aan het einde van je programma dien je de camera netjes af te sluiten met de volgende functie:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">camera</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="programmeren-van-camera-features">
+<h2>Programmeren van camera-features<a class="headerlink" href="#programmeren-van-camera-features" title="Link to this heading"></a></h2>
+<p>Er zijn zogeheten functies waarmee je verschillende instellingen van de camera kunt opvragen en wijzigen.<br />
+Deze instellingen worden <em>features</em> genoemd in de documentatie van Daheng.<br />
+Voorbeelden van features zijn:</p>
+<ul class="simple">
+<li><p><strong>Gain</strong></p></li>
+<li><p><strong>ExposureTime</strong></p></li>
+<li><p><strong>TriggerMode</strong></p></li>
+</ul>
+<p>Je kunt in het bestand <em>dahengFeatureList.py</em> in de map <em>DahengAvansLibrary</em> bekijken welke features zijn geïmplementeerd.<br />
+De belangrijkste functies van iedere feature worden hieronder beschreven.</p>
+<p>Elke feature heeft een aantal functies die je in Python kunt gebruiken. Hieronder staan de belangrijkste uitgelegd.</p>
+<hr class="docutils" />
+<section id="verkrijgen-van-het-bereik">
+<h3>Verkrijgen van het bereik<a class="headerlink" href="#verkrijgen-van-het-bereik" title="Link to this heading"></a></h3>
+<p>Met onderstaande functie verkrijg je het bereik van de feature als een Python-dictionary.</p>
+<blockquote>
+<div><p><strong>Let op:</strong> De dictionary-items zijn afhankelijk van het featuretype.<br />
+Featuretypen zijn gedefinieerd in het bestand <em>dahengFeatureType.py</em> in de map <em>DahengAvansLibrary</em>.</p>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">range</span> <span class="o">=</span> <span class="n">camera</span><span class="o">.&lt;</span><span class="n">feature</span><span class="o">&gt;.</span><span class="n">get_range</span><span class="p">()</span>
+<span class="n">range_minimaal</span> <span class="o">=</span> <span class="nb">range</span><span class="p">[</span><span class="s2">&quot;min&quot;</span><span class="p">]</span>
+<span class="n">range_maximaal</span> <span class="o">=</span> <span class="nb">range</span><span class="p">[</span><span class="s2">&quot;max&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="verkrijgen-van-de-huidige-ingestelde-waarde">
+<h3>Verkrijgen van de huidige ingestelde waarde<a class="headerlink" href="#verkrijgen-van-de-huidige-ingestelde-waarde" title="Link to this heading"></a></h3>
+<p>Met onderstaande functie kun je de huidige waarde van een feature opvragen:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">current_value</span> <span class="o">=</span> <span class="n">camera</span><span class="o">.&lt;</span><span class="n">feature</span><span class="o">&gt;.</span><span class="n">get</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="instellen-van-een-nieuwe-waarde">
+<h3>Instellen van een nieuwe waarde<a class="headerlink" href="#instellen-van-een-nieuwe-waarde" title="Link to this heading"></a></h3>
+<p>Met onderstaande functie kun je de waarde van een feature wijzigen.</p>
+<blockquote>
+<div><p><strong>Let op:</strong> Het type (<em>int</em>, <em>float</em>, <em>bool</em>, …) van de nieuwe waarde (<code class="docutils literal notranslate"><span class="pre">new_value</span></code>) moet overeenkomen met het featuretype.</p>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">camera</span><span class="o">.&lt;</span><span class="n">feature</span><span class="o">&gt;.</span><span class="n">set</span><span class="p">(</span><span class="n">new_value</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="verzenden-van-een-commando">
+<h3>Verzenden van een commando<a class="headerlink" href="#verzenden-van-een-commando" title="Link to this heading"></a></h3>
+<p>Met onderstaande functie kun je een commando van de camera uitvoeren, bijvoorbeeld een <em>SoftwareTrigger</em>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">camera</span><span class="o">.&lt;</span><span class="n">feature</span><span class="o">&gt;.</span><span class="n">send_command</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="zelf-features-toevoegen">
+<h3>Zelf features toevoegen<a class="headerlink" href="#zelf-features-toevoegen" title="Link to this heading"></a></h3>
+<p>De lijst met features van de Daheng-camera is lang; daarom zijn niet alle features geïmplementeerd.<br />
+Je kunt in het bestand <em>dahengFeatureList.py</em> in de map <em>DahengAvansLibrary</em> zelf extra features toevoegen.<br />
+Uiteraard kun je alleen features toevoegen die worden ondersteund door de Daheng-driver van de camera.</p>
+<p>Een volledige lijst met beschikbare features vind je in de<br />
+<strong><a class="reference download internal" download="" href="../_downloads/1cce54155ad7075d63a45f6eaa73823e/PythonInterfaceDevelopmentUserManual.pdf"><span class="xref download myst">Daheng Python Manual</span></a></strong>, Appendix 3.4.</p>
+<blockquote>
+<div><p><strong>Tip:</strong> Gebruik de exacte namen en het juiste type zoals vermeld in de handleiding.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Let op:</strong> Als je een feature toevoegt met een naam die niet in de originele Daheng-driver bestaat, zal een je code een foutmelding krijgen bij het uitvoeren van de betreffende functie.
+Deze worden in de kleur rood weergegeven in je Terminal.</p>
+</div></blockquote>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Voettekst">
+        <a href="VoorbeeldProgrammas.html" class="btn btn-neutral float-left" title="Voorbeeldprogramma’s" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Vorige</a>
+        <a href="ReferentieMateriaal.html" class="btn btn-neutral float-right" title="Referentie materiaal" accesskey="n" rel="next">Volgende <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Avans ATIx: Gerard Harkema.</p>
+  </div>
+
+  Gebouwd met <a href="https://www.sphinx-doc.org/">Sphinx</a> met een
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thema</a>
+    geleverd door <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

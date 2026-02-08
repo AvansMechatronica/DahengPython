@@ -1,0 +1,170 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="nl" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voorbeeldprogramma’s &mdash; Avans: Daheng Camera Library voor Python 1.0 documentatie</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=70dd46bb"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/translations.js?v=e4d38c6a"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Zoeken" href="../search.html" />
+    <link rel="next" title="Python-bibliotheekfuncties voor een Daheng-camera" href="BibliotheekFuncties.html" />
+    <link rel="prev" title="Voorbereidingen" href="Voorbereiding.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Avans: Daheng Camera Library voor Python
+              <img src="../_static/avans-hogeschool-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Zoek in documentatie" aria-label="Zoek in documentatie" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigatiemenu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Voorbereiding.html">Voorbereidingen</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Voorbeeldprogramma’s</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dahengstreamexample-py">DahengStreamExample.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dahengstreamexampleextended-py">DahengStreamExampleExtended.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dahengsoftwaretriggerexample-py">DahengSoftwareTriggerExample.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#simplefruitsroboflow-py">SimpleFruitsRoboflow.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#simplefruitsyolov5-py">SimpleFruitsYoloV5.py</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="BibliotheekFuncties.html">Python-bibliotheekfuncties voor een Daheng-camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ReferentieMateriaal.html">Referentie materiaal</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Navigatiemenu voor mobiel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Avans: Daheng Camera Library voor Python</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Paginanavigatie">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Voorbeeldprogramma’s</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/documentation/VoorbeeldProgrammas.md.txt" rel="nofollow"> Bekijk paginabron</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="voorbeeldprogramma-s">
+<h1>Voorbeeldprogramma’s<a class="headerlink" href="#voorbeeldprogramma-s" title="Link to this heading"></a></h1>
+<p>Er zijn vijf voorbeeldprogramma’s beschikbaar die je als inspiratie kunt gebruiken.</p>
+<blockquote>
+<div><p><strong>Let op:</strong> In alle programma’s is de horizontale en verticale <em>binning</em> ingesteld op <strong>4</strong>.<br />
+Dit betekent dat zowel de horizontale als verticale resolutie met een factor 4 wordt verkleind.</p>
+</div></blockquote>
+<hr class="docutils" />
+<section id="dahengstreamexample-py">
+<h2>DahengStreamExample.py<a class="headerlink" href="#dahengstreamexample-py" title="Link to this heading"></a></h2>
+<p>Dit programma demonstreert hoe een continue beeldstroom (<em>image stream</em>) in een <strong>OpenCV</strong>-venster wordt weergegeven.</p>
+</section>
+<hr class="docutils" />
+<section id="dahengstreamexampleextended-py">
+<h2>DahengStreamExampleExtended.py<a class="headerlink" href="#dahengstreamexampleextended-py" title="Link to this heading"></a></h2>
+<p>Dit programma demonstreert eveneens hoe een continue beeldstroom in een <strong>OpenCV</strong>-venster wordt weergegeven.<br />
+Daarnaast bevat het twee sliders waarmee je de <strong>ExposureTime</strong> en <strong>Gain</strong> kunt instellen.</p>
+</section>
+<hr class="docutils" />
+<section id="dahengsoftwaretriggerexample-py">
+<h2>DahengSoftwareTriggerExample.py<a class="headerlink" href="#dahengsoftwaretriggerexample-py" title="Link to this heading"></a></h2>
+<p>Dit programma demonstreert hoe de camera foto’s maakt die worden getriggerd door een <strong>softwaretrigger</strong> die elke <strong>3 seconden</strong> wordt geactiveerd.</p>
+</section>
+<section id="simplefruitsroboflow-py">
+<h2>SimpleFruitsRoboflow.py<a class="headerlink" href="#simplefruitsroboflow-py" title="Link to this heading"></a></h2>
+<p>Dit is een voorbeeldprogramma waarbij objecten worden gedetecteerd met behulp van een <strong>YOLO AI-netwerk</strong>.<br />
+De volgende objecten kunnen worden herkend:</p>
+<ul class="simple">
+<li><p>Bananen</p></li>
+<li><p>Appels</p></li>
+<li><p>Sinaasappels</p></li>
+</ul>
+<p>De detectie van de objecten gebeurt <strong>online</strong>, dat wil zeggen via de cloudomgeving van <a class="reference external" href="https://roboflow.com/">Roboflow</a>.</p>
+</section>
+<hr class="docutils" />
+<section id="simplefruitsyolov5-py">
+<h2>SimpleFruitsYoloV5.py<a class="headerlink" href="#simplefruitsyolov5-py" title="Link to this heading"></a></h2>
+<p>Dit is een voorbeeldprogramma waarbij objecten worden gedetecteerd met behulp van een <strong>YOLO AI-netwerk</strong>.<br />
+De volgende objecten kunnen worden herkend:</p>
+<ul class="simple">
+<li><p>Bananen</p></li>
+<li><p>Appels</p></li>
+<li><p>Sinaasappels</p></li>
+</ul>
+<p>De detectie van de objecten gebeurt <strong>offline</strong>, wat betekent dat de verwerking <strong>lokaal op de computer</strong> plaatsvindt.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Voettekst">
+        <a href="Voorbereiding.html" class="btn btn-neutral float-left" title="Voorbereidingen" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Vorige</a>
+        <a href="BibliotheekFuncties.html" class="btn btn-neutral float-right" title="Python-bibliotheekfuncties voor een Daheng-camera" accesskey="n" rel="next">Volgende <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Avans ATIx: Gerard Harkema.</p>
+  </div>
+
+  Gebouwd met <a href="https://www.sphinx-doc.org/">Sphinx</a> met een
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thema</a>
+    geleverd door <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
