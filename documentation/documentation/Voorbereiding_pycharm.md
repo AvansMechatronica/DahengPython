@@ -1,4 +1,4 @@
-# Voorbereidingen
+# Voorbereidingen(Pycharm)
 
 
 ## Installatie Dahang Camera Drivers
@@ -8,15 +8,40 @@ Installeer de volgende twee pakketten
 2. Galaxy Windows Runtime SDK(???)
 
 ## Installatie Python
-> Doe dit aleen als Python nog niet op je computer is geïnstalleerd.
 
-Download de laatset versie van Python vanaf de [Python-website](https://www.python.org/downloads/).
+:::{warning} Belangrijk
+De opdrachten in deze workshop werken alleen met versie 3.12 van Python.
+:::
+
+::::{tab-set}
+
+:::{tab-item} Microsoft store
+
+
+Open een windows console of PowerShell en voer het volgende commando uit om Python te installeren:
+
+```powershell
+winget install --id Python.Python.3.12 --source winget --force
+``` 
+![image](../images/cmd-install-python.png)
+
+
+:::
+
+:::{tab-item} Python Website
+
+Download de versie 3.12 van Python van af de [Python-website](https://www.python.org/downloads/).
 Voer de installatie uit!
 >Let op: 
 >* Vink "Add Python to PATH" aan (belangrijk!)
->* Onthoud de installatielocatie (PyCharm zal ernaar vragen)
+>* Onthoud de installatie-locatie 
 
 ![image](../images/PythonPath.png)
+
+
+:::
+
+::::
 
 ## Installatie PyCharm
 PyCharm is een Integrated Development Environment om eenvoudig Python programmas te ontwikkelen'.
