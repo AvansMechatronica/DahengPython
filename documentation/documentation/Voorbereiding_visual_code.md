@@ -111,7 +111,10 @@ Als je de juiste map hebt geselecteerd zie je alleen de *DahengPython* map met o
 ### Maken van virtuele environment
 Open de Python-environment selector in Visual Code om de virtuele omgeving te activeren. Kies voor Python 3.12 als je ook andere versies van Python op je systeem hebt geïnstalleerd.
 
+![image](../images/environmet-selector.png)
+
 :::{note}
+- Selecteer Python icoontje aan de linkerkant van Visual Code.
 - Kies `Custom`
 - Bevestig de locatie `.venv`.
 - Skip package installation
