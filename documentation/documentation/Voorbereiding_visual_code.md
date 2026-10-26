@@ -104,7 +104,7 @@ Visual Code maakt gebruik van virtuele environments:
 * Je installeert libraries alleen binnen dat environment.
 
 ### Project openen
-Start het Visual Code programma en open met het programma de map van de DahengPython. Deze map noemen we Project.
+Start het Visual Code programma en open met het project van deze workshop. Doe dit door te navigeren naar `File --> Open Folder` en selecteer de map van de workshopbestanden.
 Als je de juiste map hebt geselecteerd zie je alleen de *DahengPython* map met onderliggende mappen en bestanden, zie afbeelding hieronder.
 ![image](../images/PythonWorkspace_visual_code.png)
 
